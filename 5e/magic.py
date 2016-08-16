@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 from sys import argv
 
-if argv.size > 1:
+if len(argv) > 1:
 	fName = argv[1]
 else:
 	fName = 'party.mgc'
