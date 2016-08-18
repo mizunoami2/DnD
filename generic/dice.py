@@ -9,7 +9,7 @@ i = 0
 roll = 0
 while i < number:
 	roll = randint(1,size)
-	print "Die number %2i: %i" % (i+1, roll)
+	print "Die number %2s: %i" % (i+1, roll)
 	total += roll
 	i += 1
 total += mod
