@@ -1,0 +1,36 @@
+{
+    "Casters": [
+        {
+            "Name": "Fred",
+            "Meth": "Norm",
+            "Spells": [
+                ["Ray of Frost", "Ray of Frost"],
+                ["Sleep", "Burning Hands"],
+                ["Bull's Strength"]
+            ]
+        }, 
+        {
+            "Name": "George",
+            "Meth": "Norm",
+            "Spells": [
+                ["Ray of Frost", "Acid Splash"],
+                ["Shield", "Color Spray"],
+                ["Web"]
+            ]
+        },
+        {
+            "Name": "Ron",
+            "Meth": "Sorc",
+            "Spells": [
+                ["Ray of Frost", "Prestidigitation", "Mend"],
+                ["Sleep", "Magic Missle"],
+                ["Scorching Ray"]
+            ],
+            "Slots": [
+                5,
+                4,
+                2
+            ]
+        }
+    ]
+}

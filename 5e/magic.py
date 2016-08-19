@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 from sys import argv
-
+import json
 
 class Caster(object):
 	def __init__(self, name, levels):
@@ -68,6 +68,7 @@ for i in range(nCasters):
 		casters[i].slots[k] = int(file.readline())
 
 file.close()
+
 commands = ['add', 'remove', 'print', 'printall', 'cast', 'quit']
 while 1:
 	print "********** Commands: ", commands,

@@ -1,26 +1,16 @@
 #!/usr/bin/env python
 from sys import argv
-
+import json
 
 class Caster(object):
-	def __init__(self, name, levels):
+	def __init__(self, name, levels, meth):
 		self.name = name
 		self.spells = ['' for i in range(levels)]
 		self.slots = ['' for i in range(levels)]
+		self.meth = meth
 
-	def printCaster(self):
-		print "\nCaster name: %s" % (self.name)
-		for k in range(len(self.spells)):
-			o = k
-			if self.slots[0] != 99:
-				o += 1
-			if self.slots[k] == 99:
-				print "Cantrips: "
-			else:
-				print "Level %i spells (%i slots left):" % (o, self.slots[k])
-			for j in range(len(self.spells[k])):
-				print self.spells[k][j]
-			print
+#	def printCaster(self):
+#NEEDED for 3.5	
 
 	def removeSpell(self, level, name):
 		if name in self.spells[level]:
@@ -29,7 +19,7 @@ class Caster(object):
 			print "%s doesn't know %s." % (self.name, name)
 
 	def addSpell(self, level, name):
-		if name in self.spells[level]:
+		if name in self.spells[level] and self.meth == "Sorc":
 			print "%s already knows %s." % (self.name, name)
 		else:
 			self.spells[level].append(name)
@@ -37,37 +27,30 @@ class Caster(object):
 	def castSpell(self, level):
 		self.slots[level] -= 1
 
-def wl(alpha, beta):
-	alpha.write(str(beta) + '\n')
-
 def printList(alpha):
 	for i in range(len(alpha)):
 		print "[%i]: %s" % (i, alpha[i])
 
 
+
+
+fName="party.json"
 if len(argv) > 1:
 	fName = argv[1]
-else:
-	fName = 'party.mgc'
-file = open(fName, 'r+')
-nCasters = int(file.readline())
-casters = ['' for i in range(nCasters)]
-names = ['' for i in range(nCasters)]
-for i in range(nCasters):
-	name = file.readline().rstrip()
-	levels = int(file.readline())
-	names[i] = name
-	casters[i] = Caster(name, levels)
+data = json.load(open(fName))
+casters = ['' for i in data["Casters"]]
+for i in range(len(data["Casters"])):
+	dummy = data["Casters"][i]
+	casters[i] = Caster(dummy["Name"], len(dummy["Spells"]), dummy["Meth"])
+print json.dumps(casters[0].__dict__, indent=4)
+outdict = casters[0].__dict__
+outdict = {k.capitalize():v
+    for k, v in
+    outdict.iteritems()
+}
+print json.dumps(outdict, indent=4)
 
-	for k in range(levels):
-		numSpells = int(file.readline())
-		casters[i].spells[k] = ['' for alpha in range(numSpells)]
-		for alpha in range(numSpells):
-			casters[i].spells[k][alpha] = file.readline().rstrip()
-	for k in range(levels):
-		casters[i].slots[k] = int(file.readline())
-
-file.close()
+print outdict["Name"]
 commands = ['add', 'remove', 'print', 'printall', 'cast', 'quit']
 while 1:
 	print "********** Commands: ", commands,
