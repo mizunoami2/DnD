@@ -28,8 +28,20 @@ class Caster(object):
 		else:
 			self.spells[level].append(name)
 
-	def castSpell(self, level):
-		self.slots[level] -= 1
+	def addSlot(self, level):
+		if self.meth == "Prep":
+			print "%s doesn't have spell slots." % (self.name)
+		else:
+			self.slots[level] += 1
+
+	def removeSlot(self, level):
+		if self.meth == "Prep":
+			print "%s doesn't have spell slots." % (self.name)
+		else:
+			if self.slots[level] == 0:
+				print "%s has no more level %i slots left." % (self.name, level)
+			else:
+				self.slots[level] -= 1
 
 	def printCaster(self):
 		print self.name
@@ -61,17 +73,18 @@ for i in range(len(data)):
 		casters[i].slots = dummy["Slots"]
 
 
-commands = ['add', 'remove', 'print', 'printall', 'cast', 'quit']
+commands = ['add', 'addslot', 'remove', 'removeslot', 'print', 'printall', 'cast', 'quit']
 while 1:
 	print "********** Commands: ", commands,
 	command = raw_input(": ")
 	command = command.lower()
 	if command in commands:
+		print "*" * 10, command.upper(), "*" * 10
 		if command == "printall":
 			for i in casters:
 				i.printCaster()
 		elif command == "quit":
-			oname = raw_input("Name of file to write: ")
+			oname = str(input("Name of file to write: "))
 			outf = open(oname, 'w+')
 			outf.write("[\n")
 			for i in range(len(casters)):
@@ -86,13 +99,20 @@ while 1:
 			print "Caster: "
 			printList(names)
 			target = input("   : ")
-			if command == "add" or command == "remove":
+			print
+			if command[0:3] == "add" or command[0:6] == "remove":
 				level = input("Level (0-%i): " % (len(casters[target].slots) - 1))
-				name = raw_input("Spell name: ")
-				if command == "add":
-					casters[target].addSpell(level, name)
+				if command[-4:] == "slot":
+					if command == "addslot":
+						casters[target].addSlot(level)
+					else:
+						casters[target].removeSlot(level)
 				else:
-					casters[target].removeSpell(level, name)
+					name = raw_input("Spell name: ")
+					if command == "add":
+						casters[target].addSpell(level, name)
+					else:
+						casters[target].removeSpell(level, name)
 			elif command == "print":
 				casters[target].printCaster()
 			elif command == "cast":

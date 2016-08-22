@@ -1,7 +1,7 @@
 [
     {
         "Name": "Fred",
-        "Meth": "Norm",
+        "Meth": "Prep",
         "Spells": [
             ["Ray of Frost", "Ray of Frost"],
             ["Sleep", "Burning Hands"],
@@ -10,7 +10,7 @@
     }, 
     {
         "Name": "George",
-        "Meth": "Norm",
+        "Meth": "Prep",
         "Spells": [
             ["Ray of Frost", "Acid Splash"],
             ["Shield", "Color Spray"],
@@ -19,7 +19,7 @@
     },
     {
         "Name": "Ron",
-        "Meth": "Sorc",
+        "Meth": "Spon",
         "Spells": [
             ["Ray of Frost", "Prestidigitation", "Mend"],
             ["Sleep", "Magic Missle"],
@@ -29,6 +29,15 @@
             5,
             4,
             2
+        ]
+    },
+    {
+        "Name": "Strider",
+        "Meth": "Prep",
+        "Spells": [
+            [],
+            ["Longstrider", "Entangle"],
+            ["Cure Light Wounds"]
         ]
     }
 ]
