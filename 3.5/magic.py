@@ -38,10 +38,12 @@ fName="party.json"
 if len(argv) > 1:
 	fName = argv[1]
 data = json.load(open(fName))
-casters = ['' for i in data["Casters"]]
-for i in range(len(data["Casters"])):
-	dummy = data["Casters"][i]
+casters = ['' for i in data]
+names = ['' for i in data]
+for i in range(len(data)):
+	dummy = data[i]
 	casters[i] = Caster(dummy["Name"], len(dummy["Spells"]), dummy["Meth"])
+	names[i]= dummy['Name']
 print json.dumps(casters[0].__dict__, indent=4)
 outdict = casters[0].__dict__
 outdict = {k.capitalize():v
