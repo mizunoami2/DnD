@@ -32,6 +32,7 @@ class Caster(object):
 		self.slots[level] -= 1
 
 	def printCaster(self):
+		print self.name
 		if self.meth == "Spon":
 			for i in range(len(self.spells)):
 				print "\nLevel %i Spells (%i slots left): " %(i, self.slots[i])
@@ -40,6 +41,7 @@ class Caster(object):
 			for i in range(len(self.spells)):
 				print "\nLevel %i Spells: " %(i)
 				printList(self.spells[i])
+		print
 		print
 
 
