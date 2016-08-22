@@ -2,6 +2,10 @@
 from sys import argv
 import json
 
+def printList(alpha):
+	for i in range(len(alpha)):
+		print "[%i]: %s" % (i, alpha[i])
+
 class Caster(object):
 	def __init__(self, name, levels, meth):
 		self.name = name
@@ -27,10 +31,16 @@ class Caster(object):
 	def castSpell(self, level):
 		self.slots[level] -= 1
 
-def printList(alpha):
-	for i in range(len(alpha)):
-		print "[%i]: %s" % (i, alpha[i])
-
+	def printCaster(self):
+		if self.meth == "Spon":
+			for i in range(len(self.spells)):
+				print "\nLevel %i Spells (%i slots left): " %(i, self.slots[i])
+				printList(self.spells[i])
+		elif self.meth == "Prep":
+			for i in range(len(self.spells)):
+				print "\nLevel %i Spells: " %(i)
+				printList(self.spells[i])
+		print
 
 
 
@@ -44,15 +54,11 @@ for i in range(len(data)):
 	dummy = data[i]
 	casters[i] = Caster(dummy["Name"], len(dummy["Spells"]), dummy["Meth"])
 	names[i]= dummy['Name']
-print json.dumps(casters[0].__dict__, indent=4)
-outdict = casters[0].__dict__
-outdict = {k.capitalize():v
-    for k, v in
-    outdict.iteritems()
-}
-print json.dumps(outdict, indent=4)
+	casters[i].spells = dummy["Spells"]
+	if dummy["Meth"] == "Spon":
+		casters[i].slots = dummy["Slots"]
 
-print outdict["Name"]
+
 commands = ['add', 'remove', 'print', 'printall', 'cast', 'quit']
 while 1:
 	print "********** Commands: ", commands,
@@ -63,21 +69,19 @@ while 1:
 			for i in casters:
 				i.printCaster()
 		elif command == "quit":
-			oname = input("Name of file to write: ")
-			outf = open(oname, 'w')
-			wl(outf, len(casters))
-			for cas in casters:
-				wl(outf, cas.name)
-				wl(outf, len(cas.spells))
-				for spl in cas.spells:
-					wl(outf, len(spl))
-					for spell in spl:
-						wl(outf, spell)
-				for slot in cas.slots:
-					wl(outf, slot)
+			oname = raw_input("Name of file to write: ")
+			outf = open(oname, 'w+')
+			outf.write("[\n")
+			for i in range(len(casters)):
+				outdict = casters[i].__dict__
+				outdict = dict((k.capitalize(), v) for k,v in outdict.iteritems())
+				outf.write(json.dumps(outdict, indent=4))
+				if i + 1 < len(casters):
+					outf.write(",")
+			outf.write("]")
 			exit(0)
 		else:
-			print "Caster :"
+			print "Caster: "
 			printList(names)
 			target = input("   : ")
 			if command == "add" or command == "remove":
