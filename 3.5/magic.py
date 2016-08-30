@@ -2,6 +2,12 @@
 from sys import argv
 import json
 
+'''
+There is almost NO error checking in this; bad input can crash everything.
+That should be the next step if any changes are made.
+'''
+
+
 def printList(alpha):
 	for i in range(len(alpha)):
 		print "[%i]: %s" % (i, alpha[i])
@@ -12,9 +18,6 @@ class Caster(object):
 		self.spells = ['' for i in range(levels)]
 		self.slots = ['' for i in range(levels)]
 		self.meth = meth
-
-#	def printCaster(self):
-#NEEDED for 3.5	
 
 	def removeSpell(self, level, name):
 		if name in self.spells[level]:
@@ -55,7 +58,6 @@ class Caster(object):
 				printList(self.spells[i])
 		print
 		print
-
 
 
 fName="party.json"
