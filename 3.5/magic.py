@@ -80,7 +80,9 @@ while 1:
 	print "********** Commands: ", commands,
 	command = raw_input(": ")
 	command = command.lower()
+#Makes it easier to compare; case doesn't matter.
 	if command in commands:
+#We make some assumptions here about what commands need what params
 		print "*" * 10, command.upper(), "*" * 10
 		if command == "printall":
 			for i in casters:
