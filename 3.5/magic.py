@@ -86,9 +86,10 @@ while 1:
 		print "*" * 10, command.upper(), "*" * 10
 		if command == "printall":
 			for i in casters:
+				print "*" * 30
 				i.printCaster()
 		elif command == "quit":
-			oname = str(input("Name of file to write: "))
+			oname = raw_input("Name of file to write: ")
 			outf = open(oname, 'w+')
 			outf.write("[\n")
 			for i in range(len(casters)):
@@ -113,6 +114,7 @@ while 1:
 						casters[target].removeSlot(level)
 				else:
 					name = raw_input("Spell name: ")
+					print name
 					if command == "add":
 						casters[target].addSpell(level, name)
 					else:
@@ -121,9 +123,7 @@ while 1:
 				casters[target].printCaster()
 			elif command == "cast":
 				level = input("Level (0-%i): " % (len(casters[target].slots) - 1))
-				if casters[target].slots[level] == 99:
-					print "That wasn't necessary, cantrips can be cast infinitely."
-				elif casters[target].slots[level] == 0:
+				if casters[target].slots[level] == 0:
 					print "%s is out of level %i slots." % (casters[target].name, level)
 				else:
 					casters[target].slots[level] -= 1
