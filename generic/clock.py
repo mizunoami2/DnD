@@ -32,7 +32,7 @@ if __name__ == "__main__":
     time -= seconds
     warning = pygame.mixer.Sound("Warning.wav")
     timeout = pygame.mixer.Sound("TimeOut.wav")
-    minutes = time / 60
+    minutes = int(time / 60)
     bgColor = (255,255,0)
     fontColor = (0,0,0)
     textPos = (40,25)
